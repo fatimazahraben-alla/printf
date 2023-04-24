@@ -22,13 +22,15 @@ int _printf(const char *format, ...)
 				case 'c':
 					c = va_arg(ars, int);
 					_putchar(c);
+					length++;
 					break;
 				case 's':
 					s = va_arg(ars, char *);
 					while (*s != '\0')
 					{
 					_putchar(*s);
-					s++
+					s++;
+					length++;
 					}
 					break;
 				case '%':
