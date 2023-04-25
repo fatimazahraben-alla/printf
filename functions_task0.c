@@ -18,6 +18,7 @@ int print_char(va_list cl)
  */
 int print_percent(va_list pl)
 {
+	(void)(pl)
 	_putchar('%');
 	return (1);
 }
