@@ -2,29 +2,30 @@
 /**
  *g_flags - get flags
  *@format: format
- *@a: arg
+ *@i: arg
  *Return: int
  */
-int g_flags(const char *format, int *a)
+int g_flags(const char *format, int *i)
 {
-	int flags = 0, i, j;
-	const char FLAGS_CHAR[] = {'-', '+', '0', '#', ' ', '\0'};
-	const int FLAGS_A[] = {FLAG_MINUS, FLAG_PLUS,
-		FLAG_ZERO, FLAG_HASH, FLAG_SPACE, 0};
+	int j, curr_i;
+	int flags = 0;
+	const char FLAGS_CH[] = {'-', '+', '0', '#', ' ', '\0'};
+	const int FLAGS_ARR[] = {F_MINUS, F_PLUS, F_ZERO, F_HASH, F_SPACE, 0};
 
-	for (j = *a + 1; format[j] != '\0'; j++)
+	for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
 	{
-		for (i = 0; FLAGS_CHAR[i] != '\0'; i++)
-		{
-			if (format[j] == FLAGS_CHAR[i])
+		for (j = 0; FLAGS_CH[j] != '\0'; j++)
+			if (format[curr_i] == FLAGS_CH[j])
 			{
-				flags |= FLAGS_A[i];
+				flags |= FLAGS_ARR[j];
 				break;
 			}
-		}
-		if (FLAGS_CHAR[i] == 0)
+
+		if (FLAGS_CH[j] == 0)
 			break;
 	}
-	*a = j - 1;
+
+	*i = curr_i - 1;
+
 	return (flags);
 }

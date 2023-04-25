@@ -2,21 +2,23 @@
 /**
  *g_size - get size
  *@format: format
- *@a: args
+ *@i: args
  *Return: int
  */
-int g_size(const char *format, int *a)
+int g_size(const char *format, int *i)
 {
-	int i = *a + 1, size = 0;
+	int curr_i = *i + 1;
+	int size = 0;
 
-	if (format[i] == 'l')
-		size = SIZE_L;
-	else if (format[i] == 'h')
-		size = SIZE_S;
+	if (format[curr_i] == 'l')
+		size = S_LONG;
+	else if (format[curr_i] == 'h')
+		size = S_SHORT;
 
 	if (size == 0)
-		*a = i - 1;
+		*i = curr_i - 1;
 	else
-		*a = i;
+		*i = curr_i;
+
 	return (size);
 }

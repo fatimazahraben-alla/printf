@@ -1,10 +1,10 @@
 #include "main.h"
 /**
- *_isdigit -  checks for a digit (0 through 9)
+ *is_digit -  checks for a digit (0 through 9)
  *@c: The character
  *Return: 1 if c is a digit or 0 otherwise
  */
-int _isdigit(char c)
+int is_digit(char c)
 {
 	if (c >= '0' && c <= '9')
 	{
@@ -18,29 +18,33 @@ int _isdigit(char c)
 /**
  *g_size - get size
  *@format: format
- *@a: args
- *@args: args
+ *@i: args
+ *@list: args
  *Return: int
  */
-int g_size(const char *format, int *a, va_list args)
+int g_width(const char *format, int *i, va_list list)
 {
-	int i, width = 0;
+	int curr_i;
+	int width = 0;
 
-	for (i = *a + 1; format[i] != '\0'; i++)
+	for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
 	{
-		if (_isdigit(format[i]))
+		if (is_digit(format[curr_i]))
 		{
-			width = width * 10 + (format[i] - '0');
+			width *= 10;
+			width += format[curr_i] - '0';
 		}
-		else if (format[i] == '*')
+		else if (format[curr_i] == '*')
 		{
-			i++;
-			width = va_arg(args, int);
+			curr_i++;
+			width = va_arg(list, int);
 			break;
 		}
 		else
 			break;
 	}
-	*a = i - 1;
+
+	*i = curr_i - 1;
+
 	return (width);
 }
