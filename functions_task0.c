@@ -12,6 +12,16 @@ int print_char(va_list cl)
 	return (1);
 }
 /**
+ *print_percent - print character
+ *@pl: char
+ *Return: len
+ */
+int print_percent(va_list pl)
+{
+	_putchar('%');
+	return (1);
+}
+/**
  *print_string - print str
  *@sl: str
  *Return: len

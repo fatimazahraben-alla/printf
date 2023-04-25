@@ -19,5 +19,6 @@ int (*spec_printf(const char *format))(va_list);
 int _printf(const char *format, ...);
 int print_char(va_list cl);
 int print_string(va_list sl);
+int print_percent(va_list pl);
 
 #endif

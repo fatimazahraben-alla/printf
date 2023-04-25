@@ -7,7 +7,7 @@
 int (*spec_printf(const char *format))(va_list)
 {
 	int i = 0;
-	f_str spec[] = {{"c", print_char}, {"s", print_string}, {NULL, NULL}};
+	f_str spec[] = {{"c", print_char}, {"s", print_string}, {"%", print_percent}, {NULL, NULL}};
 
 	while (spec[i].ss)
 	{
