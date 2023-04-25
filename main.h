@@ -28,13 +28,16 @@ typedef struct ff_str
 	int (*ss)(va_list, char[], int, int, int, int);
 } f_str;
 
+int write_char(char c, char buffer[], int flags,
+ int width, int precision, int size);
 int _printf(const char *format, ...);
-int print_char(va_list cl);
+int print_char(va_list cl, char buffer[],
+ int flags, int width, int precision, int size);
 int print_string(va_list sl);
 int print_percent(va_list pl);
 
 int handle_printf(const char *fmt, int *a, va_list args,
-char buffer[], int flags, int width, int precision, int size);
+ char buffer[], int flags, int width, int precision, int size);
 
 int g_flags(const char *format, int *a);
 int g_precision(const char *format, int *a, va_list args);

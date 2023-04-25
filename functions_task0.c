@@ -4,12 +4,12 @@
  *@cl: char
  *Return: len
  */
-int print_char(va_list cl)
+int print_char(va_list cl, char buffer[],
+		int flags, int width, int precision, int size)
 {
 	char c = va_arg(cl, int);
 
-	_putchar(c);
-	return (1);
+	return (write_char(c, buffer, flags, width, precision, size));
 }
 /**
  *print_percent - print character
