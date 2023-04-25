@@ -2,20 +2,18 @@
 #include <unistd.h>
 #include <stdarg.h>
 /**
- *_isdigit -  checks for a digit (0 through 9)
- *@c: The character
- *Return: 1 if c is a digit or 0 otherwise
+ *printf_buffer - print the contents of buffer
+ *@buffer: buffer
+ *@b: length
+ *Return: void
  */
-int _isdigit(int c)
+void printf_buffer(char buffer[], int *b)
 {
-	if (c >= 48 && c <= 57)
+	if (*b > 0)
 	{
-		return (1);
+		write(1, &buffer[0], *b);
 	}
-	else
-	{
-		return (0);
-	}
+	*b = 0;
 }
 /**
  *_printf - printf func
@@ -24,41 +22,38 @@ int _isdigit(int c)
  */
 int _printf(const char *format, ...)
 {
-	int (*j)(va_list), a = 0, b = 0, k = 0, w = 0;
-	va_list arg;
+	int b = 0, p = 0, pc = 0;
+	int flags, width, prec, size, i;
+	va_list args;
+	char buffer[BUFFER_SIZE];
 
-	va_start(arg, format);
-	if (format == NULL)
+	if (!format)
 		return (-1);
-	while (format && format[a])
+	va_start(args, format);
+	for (i = 0; format && format[i] != '\0'; i++)
 	{
-		if (format[a] == '%')
+		if (format[i] != '%')
 		{
-			if (_isdigit(format[a + 1]))
-			{
-				w = format[a + 1] - '0';
-				b = a + 2;
-				while (_isdigit(format[b]))
-				{
-					w = w * 10 + (format[b] - '0');
-					b++;
-				}
-				a = b - 1;
-			}
-			if (format[a + 1] == '\0')
-				return (-1);
-			while (format[a + 1] == ' ')
-			{
-				if (format[a + 2] == '\0')
-					return (-1);
-				a++;
-			}
-			j = spec_printf(&format[++a]);
-			k += j ? j(arg) : _putchar('%') + _putchar(format[a]);
+			buffer[b++]  = format[i];
+			if (b == BUFFER_SIZE)
+				printf_buffer(buffer, &b);
+			pc++;
 		}
 		else
-			k += _putchar(format[a]);
+		{
+			printf_buffer(buffer, &b);
+			flags = g_flags(format, &i);
+			width = g_width(format, &i, args);
+			prec = g_precision(format, &i, args);
+			size = g_size(format, &i);
+			++i;
+			p = handle_printf(format, &i, args, buffer, flags, width, prec, size);
+			if (p == -1)
+				return (-1);
+			pc += p;
+		}
 	}
-	va_end(arg);
-	return (k);
+	printf_buffer(buffer, &b);
+	va_end(args);
+	return (pc);
 }
