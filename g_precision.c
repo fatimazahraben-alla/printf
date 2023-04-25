@@ -1,10 +1,10 @@
 #include "main.h"
 /**
- *_isdigit -  checks for a digit (0 through 9)
+ *is_digit -  checks for a digit (0 through 9)
  *@c: The character
  *Return: 1 if c is a digit or 0 otherwise
  */
-int _isdigit(char c)
+int is_digit(char c)
 {
 	if (c >= '0' && c <= '9')
 	{
@@ -18,31 +18,34 @@ int _isdigit(char c)
 /**
  *g_precision - get precision
  *@format: format
- *@a: args
- *@args: args
+ *@i: args
+ *@list: args
  *Return: int
  */
-int g_precision(const char *format, int *a, va_list args)
+int g_precision(const char *format, int *i, va_list list)
 {
-	int i = *a + 1, precision = -1;
+int curr_i = *i + 1;
+int precision = -1;
 
-	if (format[i] != '.')
-		return (precision);
-	for (i += 1; format[i] != '\0'; i++)
-	{
-		if (_isdigit(format[i]))
-		{
-			precision = precision * 10 + (format[i] - '0');
-		}
-		else if (format[i] == '*')
-		{
-			i++;
-			precision = va_arg(args, int);
-			break;
-		}
-		else
-			break;
-	}
-	*a = i - 1;
-	return (precision);
+if (format[curr_i] != '.')
+return (precision);
+precision = 0;
+for (curr_i += 1; format[curr_i] != '\0'; curr_i++)
+{
+if (is_digit(format[curr_i]))
+{
+precision *= 10;
+precision += format[curr_i] - '0';
+}
+else if (format[curr_i] == '*')
+{
+curr_i++;
+precision = va_arg(list, int);
+break;
+}
+else
+break;
+}
+*i = curr_i - 1;
+return (precision);
 }
