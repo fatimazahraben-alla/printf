@@ -43,11 +43,11 @@ int _printf(const char *format, ...);
 int handle_print(const char *fmt, int *i,
 va_list list, char buffer[], int flags, int width, int precision, int size);
 
-int print_char(va_list types, char buffer[],
+int print_char(va_list cl, char buffer[],
 	int flags, int width, int precision, int size);
-int print_string(va_list types, char buffer[],
+int print_string(va_list sl, char buffer[],
 	int flags, int width, int precision, int size);
-int print_percent(va_list types, char buffer[],
+int print_percent(va_list pl, char buffer[],
 	int flags, int width, int precision, int size);
 
 /* Functions to print numbers */
