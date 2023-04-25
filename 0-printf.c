@@ -1,5 +1,16 @@
 #include "main.h"
+#include <unistd.h>
 #include <stdarg.h>
+/**
+ *print_buffer - print th contents of buffer
+ *@buffer: buffer
+ *@s: size
+ *Return: void
+ */
+void print_buffer(char *buffer, int s)
+{
+	writr(1, buffer, s);
+}
 /**
  *_printf - printf func
  *@format: first arg
@@ -7,43 +18,28 @@
  */
 int _printf(const char *format, ...)
 {
-	int length = 0;
-	char *s, c;
+	int width, precis, length = 0;
+	char *flags, size;
+	const char *m;
 	va_list ars;
 
 	va_start(ars, format);
-	while (*format != '\0')
+	for (m = format, *m != '\0'; m++)
 	{
-		if (*format == '%')
+		if (*m != '%')
 		{
-			format++;
-			switch (*format)
-			{
-				case 'c':
-					c = va_arg(ars, int);
-					_putchar(c);
-					length++;
-					break;
-				case 's':
-					s = va_arg(ars, char *);
-					while (*s != '\0')
-					{
-					_putchar(*s);
-					s++;
-					length++;
-					}
-					break;
-				case '%':
-					_putchar('%');
-					length++;
-					break;
-			}
+			length += print_buffer(m, 1);
+			continue;
 		}
-		else
-			_putchar(*format);
-			length++;
-		format++;
+		m++;
+		flags = g_flags(&m);
+		width = g_width(&m, ars);
+		precis = g_precision(&m, ars);
+		size = g_size(&m);
+		length += handle_p(&m, ars, flags, width, precis, size);
 	}
+
+	print_buffer(NULL, 0);
 	va_end(ars);
 	return (length);
 }
