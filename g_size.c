@@ -1,8 +1,9 @@
 #include "main.h"
+
 /**
  *g_size - get size
  *@format: format
- *@i: args
+ *@i: arguments to be printed
  *Return: int
  */
 int g_size(const char *format, int *i)
