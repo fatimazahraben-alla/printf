@@ -1,8 +1,8 @@
 #include "main.h"
-#include <unistd.h>
-#include <stdarg.h>
+
+
 /**
- *printf_buffer - print the contents of buffer
+ *print_buffer - print the contents of buffer
  *@buffer: buffer
  *@b: length
  *Return: void
@@ -29,7 +29,6 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
-
 	va_start(list, format);
 
 	for (i = 0; format && format[i] != '\0'; i++)
@@ -57,10 +56,7 @@ int _printf(const char *format, ...)
 			printed_chars += printed;
 		}
 	}
-
 	print_buffer(buffer, &buff_ind);
-
 	va_end(list);
-
 	return (printed_chars);
 }
