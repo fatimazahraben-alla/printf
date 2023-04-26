@@ -16,10 +16,10 @@ int is_digit(char c)
 	}
 }
 /**
- *g_size - get size
+ *g_width - calculates the width 
  *@format: format
  *@i: args
- *@list: args
+ *@list: list of argument
  *Return: int
  */
 int g_width(const char *format, int *i, va_list list)
