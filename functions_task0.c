@@ -14,7 +14,7 @@ int print_char(va_list cl, char buffer[],
 {
 	char c = va_arg(cl, int);
 
-	return (write_char(c, buffer, flags, width, precision, size));
+	return (handle_write_char(c, buffer, flags, width, precision, size));
 }
 /**
  * print_percent - Prints a percent sign
@@ -29,7 +29,7 @@ int print_char(va_list cl, char buffer[],
 int print_percent(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
-	UNUSED(pl);
+	UNUSED(types);
 	UNUSED(buffer);
 	UNUSED(flags);
 	UNUSED(width);
